@@ -32,7 +32,7 @@ class PokemonRepository(private val api: PokemonApi) {
         val response = api.getPokemonDetail(id)
         var pokemon = mapToPokemon(response)
         val speciesResponse = api.getPokemonSpecies(response.species.url)
-        pokemon = pokemon.copy(description = getEnglishDescription(speciesResponse))
+        pokemon = pokemon.copy(description = getDescription(speciesResponse))
 
         // Cache the Pokemon
         cache.addPokemon(pokemon)
@@ -45,22 +45,28 @@ class PokemonRepository(private val api: PokemonApi) {
             id = response.id,
             name = response.name,
             types = response.types.map { it.type.name },
-            spriteUrl = response.sprites.front_default,
             weight = response.weight,
             height = response.height,
             order = response.order,
             stats = response.stats.associate { it.stat.name to it.base_stat },
+            imageUrl = getPokemonImageUrl(response.id),
             /*fetch this separately for detailed view*/
             description = ""
         )
     }
 
-    private fun getEnglishDescription(speciesResponse: PokemonSpeciesResponse): String {
+    private fun getDescription(speciesResponse: PokemonSpeciesResponse): String {
         return speciesResponse.flavor_text_entries
             .firstOrNull { it.language.name == "en" }
             ?.flavor_text
             ?.replace("\n", " ")
             ?: "No description available."
+    }
+
+    private fun getPokemonImageUrl(id: Int): String {
+        return "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${
+            id.toString().padStart(3, '0')
+        }.png"
     }
 
 }

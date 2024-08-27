@@ -4,7 +4,7 @@ data class Pokemon(
     val id: Int,
     val name: String,
     val types: List<String>,
-    val spriteUrl: String,
+    val imageUrl: String,
     val weight: Int,
     val height: Int,
     val order: Int,

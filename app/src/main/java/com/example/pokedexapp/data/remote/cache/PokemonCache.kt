@@ -6,7 +6,8 @@ import com.example.pokedexapp.data.remote.model.Pokemon
 
 class PokemonCache {
         // LruCache for storing individual Pokemon details
-        private val pokemonCache: LruCache<Int, Pokemon> = LruCache(100) // Cache size of 100 Pokemon
+        // Cache size of 100 Pokemon
+        private val pokemonCache: LruCache<Int, Pokemon> = LruCache(100)
 
     // Cache for storing the full details of the Pokemon list
         private var fullPokemonList: List<Pokemon>? = null
