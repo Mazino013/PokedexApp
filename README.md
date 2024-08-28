@@ -1,2 +1,2 @@
 # PokedexApp
-This app will display a list of pokemon from the Pokemon API and show their details to a user
+The Android application leverages Jetpack Compose for building a modern, declarative UI, integrates Retrofit to efficiently handle API requests, utilizes Kotlin Coroutines for managing asynchronous operations and background tasks, implements Flow for reactive data streaming and state management, and employs in-memory caching to optimize data retrieval and enhance overall app performance, resulting in a responsive, efficient, and user-friendly mobile experience.
