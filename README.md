@@ -4,10 +4,10 @@
   
   <div style="display: flex; justify-content: center; gap: 20px;">
     <img src="https://github.com/user-attachments/assets/0ea03bb8-8ffd-4ee8-837c-d8278aac7d9d" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/d14f15ea-c09a-4347-83d9-398fd4110ed3" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/403630d8-08e9-42db-b8b9-973f71d774b93" style="width: 30%; max-width: 300px;">
     <img src="https://github.com/user-attachments/assets/f2d7fc15-63ec-4251-8115-dcfc917c50bd" style="width: 30%; max-width: 300px;">
   </div>
-</div>
+</div
 
 ## Features
 - **Pokemon-themed App**: A visually appealing application that displays Pokémon in a scrollable list by demonstrating modern Android development with **Jetpack Compose Navigation and Lifecycle**,  Coroutines, Flow, ViewModel, and Material Design based on MVVM architecture.
