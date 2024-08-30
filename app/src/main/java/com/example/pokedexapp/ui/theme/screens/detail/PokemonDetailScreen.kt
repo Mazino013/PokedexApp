@@ -1,5 +1,6 @@
 package com.example.pokedexapp.ui.theme.screens.detail
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,9 +26,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -37,102 +41,113 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
     val pokemon by viewModel.pokemon.collectAsState()
     val scrollState = rememberScrollState()
 
-    pokemon?.let { pokemonData ->
-        val backgroundColor = ColorUtils.getPokemonTypeColor(pokemonData.types.firstOrNull() ?: "")
+    pokemon?.let { pokemonDetail ->
+        val backgroundColor = ColorUtils.getPokemonTypeColor(pokemonDetail.types.firstOrNull() ?: "")
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                .background(Color.White),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Colored accent behind the sprite
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
-                    .background(backgroundColor)
-            ) {
-                AsyncImage(
-                    model = pokemonData.imageUrl,
-                    contentDescription = pokemonData.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp)
-                        .align(Alignment.Center)
-                        .background(Color.White.copy(alpha = 0.5f))
-                        .padding(bottom = 16.dp),
-                    contentScale = ContentScale.Fit
-                )
-            }
-
-            // Pokemon details
+        Box(modifier = Modifier.fillMaxSize().background(backgroundColor)) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxSize()
+                    .verticalScroll(scrollState)
             ) {
-                // Name
-                Text(
-                    text = pokemonData.name,
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                // Types
-                Row(
-                    horizontalArrangement = Arrangement.Center
+                // Name and Types (top-left)
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.Start)
                 ) {
-                    pokemonData.types.forEach { type ->
-                        TypeChip(type, Modifier.padding(horizontal = 4.dp))
+                    Text(
+                        text = pokemonDetail.name,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    pokemonDetail.types.forEach { type ->
+                        TypeChip(
+                            type,
+                            Modifier.padding(vertical = 4.dp)
+                        )
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Other details
-                DetailItem("Height", "${pokemonData.height / 10.0} m")
-                DetailItem("Weight", "${pokemonData.weight / 10.0} kg")
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Stats
-//                Text(
-//                    "Base Stats",
-//                    style = MaterialTheme.typography.titleSmall,
-//                    fontWeight = FontWeight.Bold
-//                )
-//                pokemonData.stats.forEach { (stat, value) ->
-//                    StatBar(stat, value)
-//                }
-
-                Text(
-                    "Base Stats",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
-                )
-                pokemonData.stats.forEach { (stat, value) ->
-                    StatBar(stat, value)
+                // Pokemon Image (center)
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                ) {
+                    AsyncImage(
+                        model = pokemonDetail.imageUrl,
+                        contentDescription = pokemonDetail.name,
+                        modifier = Modifier
+                            .size(250.dp)
+                            .align(Alignment.Center)
+                    )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                // Details and Description (rounded corner shape below)
+                Surface(
+                    color = Color.White,
+                    shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
 
-                // Description
-                Text(
-                    "Description",
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = pokemonData.description,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        // Other details
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = "${pokemonDetail.weight / 10.0} kg",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text("Weight", style = MaterialTheme.typography.titleMedium)
+                            }
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = "${pokemonDetail.height / 10.0} m",
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text("Height", style = MaterialTheme.typography.titleMedium)
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Stats
+                        Text(
+                            "Base Stats",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        pokemonDetail.stats.forEach { (stat, value) ->
+                            StatBar(stat, value)
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Description
+                        Text(
+                            "Description",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = pokemonDetail.description,
+                            style = MaterialTheme.typography.titleSmall,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
+                    }
+                }
             }
         }
     }
@@ -143,14 +158,16 @@ fun TypeChip(type: String, modifier: Modifier = Modifier) {
     val backgroundColor = ColorUtils.getPokemonTypeColor(type)
     Surface(
         color = backgroundColor,
-        shape = MaterialTheme.shapes.small,
-        modifier = modifier
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.dp, Color.White),
+        modifier = modifier.width(150.dp)
     ) {
         Text(
             text = type,
             color = Color.White,
             modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
-            fontSize = 12.sp
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center
         )
     }
 }

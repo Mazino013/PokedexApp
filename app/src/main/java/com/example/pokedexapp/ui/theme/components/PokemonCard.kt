@@ -38,17 +38,17 @@ fun PokemonCard(pokemon: Pokemon, onClick: () -> Unit) {
                 model = pokemon.imageUrl,
                 contentDescription = pokemon.name,
                 modifier = Modifier
-                    .size(125.dp)
+                    .size(150.dp)
                     .align(Alignment.Center)
                     .padding(8.dp)
             )
 
             // Order number at the top right
             Text(
-                text = "*${pokemon.order}",
+                text = "No:${pokemon.order}",
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(8.dp),
+                    .padding(5.dp),
                 style = MaterialTheme.typography.titleSmall,
                 color = Color.White
             )
@@ -65,13 +65,6 @@ fun PokemonCard(pokemon: Pokemon, onClick: () -> Unit) {
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleMedium,
-                    color = Color.White
-                )
-                Text(
-                    pokemon.types.joinToString(),
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.bodyMedium,
                     color = Color.White
                 )
             }
