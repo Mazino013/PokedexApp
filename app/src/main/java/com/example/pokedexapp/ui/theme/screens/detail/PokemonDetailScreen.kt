@@ -6,11 +6,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -98,10 +101,20 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Stats
+//                Text(
+//                    "Base Stats",
+//                    style = MaterialTheme.typography.titleSmall,
+//                    fontWeight = FontWeight.Bold
+//                )
+//                pokemonData.stats.forEach { (stat, value) ->
+//                    StatBar(stat, value)
+//                }
+
                 Text(
                     "Base Stats",
                     style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                 )
                 pokemonData.stats.forEach { (stat, value) ->
                     StatBar(stat, value)
@@ -157,21 +170,49 @@ fun DetailItem(label: String, value: String) {
 
 @Composable
 fun StatBar(statName: String, statValue: Int) {
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = 4.dp)) {
-        Text(text = statName, fontWeight = FontWeight.Bold)
-        LinearProgressIndicator(
-            progress = { statValue / 100f },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp),
-            color = when {
-                statValue < 50 -> Color.Red
-                statValue < 80 -> Color.Yellow
-                else -> Color.Green
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = when (statName) {
+                "special-attack" -> "Sp. Atk"
+                "special-defense" -> "Sp. Def"
+                else -> statName.replaceFirstChar { it.uppercase() }
+
             },
+            fontWeight = FontWeight.Bold,
+            fontSize = 12.sp,
+            modifier = Modifier.width(80.dp)
         )
-        Text(text = statValue.toString(), modifier = Modifier.align(Alignment.End))
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .height(20.dp)
+                .background(Color.LightGray, RoundedCornerShape(10.dp))
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth((statValue / 255f).coerceIn(0f, 1f))
+                    .background(
+                        when {
+                            statValue < 50 -> Color.Red
+                            statValue < 100 -> Color.Yellow
+                            else -> Color.Green
+                        },
+                        RoundedCornerShape(10.dp)
+                    )
+            )
+            Text(
+                text = statValue.toString(),
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
     }
 }
