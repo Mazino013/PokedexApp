@@ -170,19 +170,6 @@ fun TypeChip(type: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun DetailItem(label: String, value: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(text = label, fontWeight = FontWeight.Bold)
-        Text(text = value)
-    }
-}
-
-@Composable
 fun StatBar(statName: String, statValue: Int) {
     Row(
         modifier = Modifier
