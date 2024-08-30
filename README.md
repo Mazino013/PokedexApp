@@ -4,7 +4,7 @@
   
   <div style="display: flex; justify-content: center; gap: 20px;">
     <img src="https://github.com/user-attachments/assets/fc267da5-0868-47fc-ae2c-54d2c87dec69" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/2a9f6b4b-9efc-47b8-a5cb-7212eed63fdf" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/9fcf3034-e2fc-4201-a795-79254218e6de" style="width: 30%; max-width: 300px;">
     <img src="https://github.com/user-attachments/assets/1e234ac6-690b-4faa-9032-cef03393b095" style="width: 30%; max-width: 300px;">
   </div>
 </div>
