@@ -3,12 +3,11 @@
   <h1 style="font-size: 36px; margin-bottom: 20px;">Pokedex</h1>
   
   <div style="display: flex; justify-content: center; gap: 20px;">
-    <img src="https://github.com/user-attachments/assets/0ea03bb8-8ffd-4ee8-837c-d8278aac7d9d" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/25a12f86-e235-482c-9e38-f24168aafb82" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/f2d7fc15-63ec-4251-8115-dcfc917c50bd" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/fc267da5-0868-47fc-ae2c-54d2c87dec69" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/2a9f6b4b-9efc-47b8-a5cb-7212eed63fdf" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/1e234ac6-690b-4faa-9032-cef03393b095" style="width: 30%; max-width: 300px;">
   </div>
 </div>
-
 
 ## Features
 - **Pokemon-themed App**: A visually appealing application that displays Pokémon in a scrollable list by demonstrating modern Android development with **Jetpack Compose Navigation and Lifecycle**,  Coroutines, Flow, ViewModel, and Material Design based on MVVM architecture.
