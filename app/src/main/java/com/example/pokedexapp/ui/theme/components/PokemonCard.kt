@@ -19,8 +19,7 @@ import com.example.pokedexapp.util.ColorUtils
 
 @Composable
 fun PokemonCard(pokemon: Pokemon, onClick: () -> Unit) {
-    val backgroundColor = ColorUtils.getPokemonTypeColorWithAlpha(pokemon.types.firstOrNull() ?: "", 0.3f)
-
+    val backgroundColor = ColorUtils.getPokemonTypeColor(pokemon.types.firstOrNull() ?: "")
     Card(
         modifier = Modifier
             .padding(8.dp)
