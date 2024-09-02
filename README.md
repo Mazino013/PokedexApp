@@ -17,7 +17,8 @@
   - Pokemon’s sprite
   - Pokemon's name
   - Type
-  - number (called order in api response)
+  - Number (called order in api response)
+  - Description
     
  ## Architecture
 
