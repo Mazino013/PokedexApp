@@ -3,9 +3,9 @@
   <h1 style="font-size: 36px; margin-bottom: 20px;">Pokedex</h1>
   
   <div style="display: flex; justify-content: center; gap: 20px;">
-    <img src="https://github.com/user-attachments/assets/fc267da5-0868-47fc-ae2c-54d2c87dec69" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/9fcf3034-e2fc-4201-a795-79254218e6de" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/1e234ac6-690b-4faa-9032-cef03393b095" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/4402f668-6a29-4ac4-b4fc-3ddeb4f0c442" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/f107abfe-d36b-475d-bf46-8886d5a71adb" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/0dc825eb-bd67-43f4-9bb9-a5c3fbf68ce8" style="width: 30%; max-width: 300px;">
   </div>
 </div>
 
