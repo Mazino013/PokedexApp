@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -25,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.pokedexapp.util.ColorUtils
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
@@ -41,7 +44,9 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
     pokemon?.let { pokemonDetail ->
         val backgroundColor = ColorUtils.getPokemonTypeColor(pokemonDetail.types.firstOrNull() ?: "")
 
-        Box(modifier = Modifier.fillMaxSize().background(backgroundColor)) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(backgroundColor)) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -54,16 +59,23 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
                         .align(Alignment.Start)
                 ) {
                     Text(
-                        text = pokemonDetail.name,
-                        style = MaterialTheme.typography.headlineSmall,
+                        text = pokemonDetail.name.replaceFirstChar { it.uppercase() },
+                        style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
-                    pokemonDetail.types.forEach { type ->
-                        TypeChip(
-                            type,
-                            Modifier.padding(vertical = 4.dp)
-                        )
+                    Row (
+                        modifier = Modifier
+                            .width(IntrinsicSize.Max)
+                            .padding(vertical = 4.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        pokemonDetail.types.forEach { type ->
+                            TypeChip(
+                                type,
+                                Modifier.padding(vertical = 2.dp)
+                            )
+                        }
                     }
                 }
 
@@ -71,13 +83,13 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(300.dp)
+                        .height(250.dp)
                 ) {
                     AsyncImage(
                         model = pokemonDetail.imageUrl,
                         contentDescription = pokemonDetail.name,
                         modifier = Modifier
-                            .size(250.dp)
+                            .size(220.dp)
                             .align(Alignment.Center)
                     )
                 }
@@ -103,7 +115,7 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
                                     text = "${pokemonDetail.weight / 10.0} kg",
-                                    style = MaterialTheme.typography.bodyLarge,
+                                    style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text("Weight", style = MaterialTheme.typography.titleMedium)
@@ -111,7 +123,7 @@ fun PokemonDetailScreen(viewModel: PokemonDetailViewModel) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
                                     text = "${pokemonDetail.height / 10.0} m",
-                                    style = MaterialTheme.typography.bodyLarge,
+                                    style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold
                                 )
                                 Text("Height", style = MaterialTheme.typography.titleMedium)
@@ -155,16 +167,16 @@ fun TypeChip(type: String, modifier: Modifier = Modifier) {
     val backgroundColor = ColorUtils.getPokemonTypeColor(type)
     Surface(
         color = backgroundColor,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(12.dp),
         border = BorderStroke(1.dp, Color.White),
-        modifier = modifier.width(150.dp)
+        modifier = modifier
     ) {
         Text(
             text = type,
             color = Color.White,
             modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
-            fontSize = 16.sp,
-            textAlign = TextAlign.Center
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold
         )
     }
 }
