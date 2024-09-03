@@ -3,10 +3,10 @@
   <h1 style="font-size: 36px; margin-bottom: 20px;">Pokedex</h1>
   
   <div style="display: flex; justify-content: center; gap: 20px;">
-    <img src="https://github.com/user-attachments/assets/4402f668-6a29-4ac4-b4fc-3ddeb4f0c442" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/f107abfe-d36b-475d-bf46-8886d5a71adb" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/0dc825eb-bd67-43f4-9bb9-a5c3fbf68ce8" style="width: 30%; max-width: 300px;">
-    <img src="https://github.com/user-attachments/assets/26a4352c-531a-4342-ae99-f3e25a06fece" style="width: 30%; max-width: 300px;">
+    <img src="https://github.com/user-attachments/assets/4402f668-6a29-4ac4-b4fc-3ddeb4f0c442" style="width: 30%; max-width: 100px;">
+    <img src="https://github.com/user-attachments/assets/f107abfe-d36b-475d-bf46-8886d5a71adb" style="width: 30%; max-width: 100px;">
+    <img src="https://github.com/user-attachments/assets/0dc825eb-bd67-43f4-9bb9-a5c3fbf68ce8" style="width: 30%; max-width: 100px;">
+    <img src="https://github.com/user-attachments/assets/26a4352c-531a-4342-ae99-f3e25a06fece" style="width: 30%; max-width: 100px;">
   </div>
 </div>
 
