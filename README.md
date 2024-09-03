@@ -10,7 +10,7 @@
 </div>
 
 ## Features
-- **Pokemon-themed App**: A visually appealing application that displays Pokémon in a scrollable list by demonstrating modern Android development with **Jetpack Compose Navigation and Lifecycle**,  Coroutines, Flow, ViewModel, and Material Design based on MVVM architecture.
+- **Pokemon-themed App**: A visually appealing application that displays Pokémon in a scrollable list by demonstrating modern Android development with **Jetpack Compose Navigation, Lifecycle,  Coroutines, Flow, ViewModel, and Material Design based on MVVM architecture**.
 - **Data Fetching**: Utilizes the [PokeApi](https://pokeapi.co/) to fetch data using Retrofit, ensuring efficient and reliable data retrieval.
 - **Type Change Functionality Using  Chips**: Allows users to easily search for Pokemon with a robust search filter feature.
 - **Detailed Pokemon Stats**: Clickable items reveal detailed Pokémon stats, including:
