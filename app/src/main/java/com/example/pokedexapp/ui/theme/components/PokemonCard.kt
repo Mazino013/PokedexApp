@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.pokedexapp.data.remote.model.Pokemon
+import com.example.pokedexapp.model.Pokemon
 import com.example.pokedexapp.util.ColorUtils
 
 

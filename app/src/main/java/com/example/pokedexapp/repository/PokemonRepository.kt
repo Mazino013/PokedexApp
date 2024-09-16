@@ -1,15 +1,16 @@
-package com.example.pokedexapp.data.remote.repository
+package com.example.pokedexapp.repository
 
 import com.example.pokedexapp.data.remote.api.PokemonApi
 import com.example.pokedexapp.data.remote.api.PokemonSpeciesResponse
 import com.example.pokedexapp.data.remote.cache.PokemonCache
-import com.example.pokedexapp.data.remote.model.Pokemon
-import com.example.pokedexapp.data.remote.model.PokemonDetailResponse
+import com.example.pokedexapp.model.Pokemon
+import com.example.pokedexapp.model.PokemonDetailResponse
+import javax.inject.Inject
 
-class PokemonRepository(private val api: PokemonApi) {
-
-    private val cache = PokemonCache()
-
+class PokemonRepository @Inject constructor(
+    private val api: PokemonApi,
+    private val cache: PokemonCache
+) {
     suspend fun getPokemonList(): List<Pokemon> {
         // Check if the full list is in cache
         cache.getFullPokemonList()?.let { return it }
@@ -32,7 +33,7 @@ class PokemonRepository(private val api: PokemonApi) {
         val response = api.getPokemonDetail(id)
         var pokemon = mapToPokemon(response)
         val speciesResponse = api.getPokemonSpecies(response.species.url)
-        pokemon = pokemon.copy(description = getDescription(speciesResponse))
+        pokemon = pokemon.copy(description = getEnglishDescription(speciesResponse))
 
         // Cache the Pokemon
         cache.addPokemon(pokemon)
@@ -45,17 +46,16 @@ class PokemonRepository(private val api: PokemonApi) {
             id = response.id,
             name = response.name,
             types = response.types.map { it.type.name },
+            imageUrl = getPokemonImageUrl(response.id),
             weight = response.weight,
             height = response.height,
             order = response.order,
             stats = response.stats.associate { it.stat.name to it.base_stat },
-            imageUrl = getPokemonImageUrl(response.id),
-            /*fetch this separately for detailed view*/
-            description = ""
+            description = "" // We'll fetch this separately for detailed view
         )
     }
 
-    private fun getDescription(speciesResponse: PokemonSpeciesResponse): String {
+    private fun getEnglishDescription(speciesResponse: PokemonSpeciesResponse): String {
         return speciesResponse.flavor_text_entries
             .firstOrNull { it.language.name == "en" }
             ?.flavor_text

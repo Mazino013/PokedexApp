@@ -21,10 +21,11 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun PokemonListScreen(
-    viewModel: PokemonListViewModel,
+    viewModel: PokemonListViewModel = hiltViewModel(),
     onPokemonClick: (Int) -> Unit
 ) {
     val pokemonList by viewModel.filteredPokemonList.collectAsState()

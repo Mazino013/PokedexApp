@@ -2,8 +2,9 @@ package com.example.pokedexapp.ui.theme.screens.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedexapp.data.remote.model.Pokemon
-import com.example.pokedexapp.data.remote.repository.PokemonRepository
+import com.example.pokedexapp.model.Pokemon
+import com.example.pokedexapp.repository.PokemonRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -11,8 +12,12 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PokemonListViewModel(private val repository: PokemonRepository) : ViewModel() {
+@HiltViewModel
+class PokemonListViewModel @Inject constructor (
+    private val repository: PokemonRepository
+) : ViewModel() {
     private val pokemonList = MutableStateFlow<List<Pokemon>>(emptyList())
     private val _isLoading = MutableStateFlow(false)
     private val _error = MutableStateFlow<String?>(null)
