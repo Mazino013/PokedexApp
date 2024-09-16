@@ -1,6 +1,5 @@
 package com.example.pokedexapp.di
 
-import android.app.Application
 import android.content.Context
 import com.example.pokedexapp.data.remote.api.PokemonApi
 import com.example.pokedexapp.data.remote.cache.PokemonCache
