@@ -42,6 +42,9 @@ Pokedex is built using the MVVM (Model-View-ViewModel) Architecture, a design pa
      - Error handling
    - Provides a clean API for the View to interact with
 
+4. **Hilt**
+   - Handles dependency injection.
+
 ### Benefits of MVVM in Pokedex
 
 - **Separation of Concerns**: Clear distinction between UI, data, and business logic
