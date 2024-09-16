@@ -1,17 +1,22 @@
 package com.example.pokedexapp.data.remote.cache
 
+import android.content.Context
 import android.util.Log
 import android.util.LruCache
-import com.example.pokedexapp.data.remote.model.Pokemon
+import com.example.pokedexapp.model.Pokemon
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 
-class PokemonCache {
-        // LruCache for storing individual Pokemon details
-        // Cache size of 100 Pokemon
-        private val pokemonCache: LruCache<Int, Pokemon> = LruCache(100)
+class PokemonCache @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
+    // LruCache for storing individual Pokemon details
+    // Cache size of 100 Pokemon
+    private val pokemonCache: LruCache<Int, Pokemon> = LruCache(100)
 
     // Cache for storing the full details of the Pokemon list
-        private var fullPokemonList: List<Pokemon>? = null
+    private var fullPokemonList: List<Pokemon>? = null
 
     // Function to get a Pokemon by ID
     fun getPokemon(id: Int): Pokemon? {

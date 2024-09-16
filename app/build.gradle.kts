@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.baselineProfile)
 }
 
 android {
@@ -29,6 +33,11 @@ android {
             )
         }
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,21 +70,25 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.adapters)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
     /*Libraries*/
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.coil.compose)
-    implementation (libs.androidx.lifecycle.viewmodel.compose.v284)
     implementation (libs.accompanist.pager)
     implementation (libs.accompanist.pager.indicators)
 
+    /*Dependency Injection*/
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation (libs.androidx.hilt.navigation.compose)
+
+    /*Baseline Profile*/
+    implementation (libs.androidx.profileinstaller)
 }

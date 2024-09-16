@@ -1,4 +1,4 @@
-package com.example.pokedexapp.data.remote.model
+package com.example.pokedexapp.model
 
 data class Pokemon(
     val id: Int,
