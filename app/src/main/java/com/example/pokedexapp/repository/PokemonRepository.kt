@@ -15,6 +15,7 @@ class PokemonRepository @Inject constructor(
         // Check if the full list is in cache
         cache.getFullPokemonList()?.let { return it }
 
+        //"https:", "", "pokeapi.co", "api", "v2", "pokemon", "1", ""
         val response = api.getPokemonList()
         val pokemonList = response.results.map { item ->
             val id = item.url.split("/").dropLast(1).last().toInt()
