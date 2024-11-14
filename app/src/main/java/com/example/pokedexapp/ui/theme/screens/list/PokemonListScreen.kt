@@ -32,13 +32,13 @@ fun PokemonListScreen(
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.error.collectAsState()
     val availableTypes by viewModel.availableTypes.collectAsState()
-    val currentFilter by viewModel.filterType.collectAsState()
+    val selectedTypes by viewModel.selectedTypes.collectAsState()
 
     Column {
         // TypeFilter Integration
         Column {
             Text(
-                text = "Filter by Type:",
+                text = "Filter by Type (max 2):",
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
             )
             LazyRow(
@@ -47,15 +47,15 @@ fun PokemonListScreen(
             ) {
                 item {
                     FilterChip(
-                        selected = currentFilter == null,
-                        onClick = { viewModel.setFilterType(null) },
+                        selected = selectedTypes.isEmpty(),
+                        onClick = { viewModel.clearFilters() },
                         label = { Text("All") }
                     )
                 }
                 items(availableTypes) { type ->
                     FilterChip(
-                        selected = type == currentFilter,
-                        onClick = { viewModel.setFilterType(type) },
+                        selected = type in selectedTypes,
+                        onClick = { viewModel.toggleFilterType(type) },
                         label = { Text(type) }
                     )
                 }

@@ -11,26 +11,27 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PokemonListViewModel @Inject constructor (
+class PokemonListViewModel @Inject constructor(
     private val repository: PokemonRepository
 ) : ViewModel() {
     private val pokemonList = MutableStateFlow<List<Pokemon>>(emptyList())
     private val _isLoading = MutableStateFlow(false)
     private val _error = MutableStateFlow<String?>(null)
-    private val _filterType = MutableStateFlow<String?>(null)
+    private val _selectedTypes = MutableStateFlow<Set<String>>(emptySet())
 
     val isLoading: StateFlow<Boolean> = _isLoading
     val error: StateFlow<String?> = _error
-    val filterType: StateFlow<String?> = _filterType
+    val selectedTypes: StateFlow<Set<String>> = _selectedTypes
 
-    val filteredPokemonList: StateFlow<List<Pokemon>> = combine(pokemonList, _filterType) { list, filter ->
+    val filteredPokemonList: StateFlow<List<Pokemon>> = combine(pokemonList, _selectedTypes) { list, filters ->
         when {
-            filter.isNullOrBlank() -> list
-            else -> list.filter { it.types.contains(filter) }
+            filters.isEmpty() -> list
+            else -> list.filter { pokemon -> pokemon.types.any { it in filters } }
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
@@ -56,7 +57,17 @@ class PokemonListViewModel @Inject constructor (
         }
     }
 
-    fun setFilterType(type: String?) {
-        _filterType.value = type
+    fun toggleFilterType(type: String) {
+        _selectedTypes.update { currentFilters ->
+            when {
+                type in currentFilters -> currentFilters - type
+                currentFilters.size < 2 -> currentFilters + type
+                else -> (currentFilters - currentFilters.first()) + type
+            }
+        }
+    }
+
+    fun clearFilters() {
+        _selectedTypes.value = emptySet()
     }
 }
